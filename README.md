@@ -8,12 +8,11 @@ Why does reading a csv use double the memory of the df?
 import pandas as pd
 import tracemalloc
 
-tracemalloc.start()
-
 with open("data.txt", 'w') as f:
     f.write('x\n')
-    for i in range(1000000):
-        f.write(f'{i}\n')
+    f.write('\n'.join(str(i) for i in range(1000000)))
+    
+tracemalloc.start()
 
 current, peak = tracemalloc.get_traced_memory()
 print(f"Current {int(current / 10 ** 6)} MB Peak {int(peak / 10 ** 6)} MB")
